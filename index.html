@@ -1,0 +1,1356 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#6759c8">
+<title>Misi Bangun Ruang | TKA Matematika Kelas IX</title>
+
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com"></script>
+
+<!-- Font Awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+<!-- Confetti -->
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+
+<script>
+tailwind.config = {
+ theme: {
+  extend: {
+   colors: {
+    purple: {main:'#7565D8',light:'#EEEAFE',dark:'#5144A5'},
+    pink: {soft:'#FFE4EE'},
+    yellow: {soft:'#FFF4CC'},
+    mint: {soft:'#DDF8EF'},
+    blue: {soft:'#E1F0FF'}
+   },
+   fontFamily: {
+    heading:['Fredoka','sans-serif'],
+    body:['Nunito','sans-serif']
+   }
+  }
+ }
+}
+</script>
+
+<style>
+:root {
+ --purple:#7565D8;
+ --dark:#5144A5;
+ --pink:#FF9DBD;
+ --yellow:#FFD66B;
+ --mint:#80DDBB;
+ --blue:#8CCBFA;
+}
+* {box-sizing:border-box}
+body {
+ margin:0;
+ font-family:'Nunito',sans-serif;
+ background:#F7F6FF;
+ color:#34314D;
+}
+h1,h2,h3,.heading {font-family:'Fredoka',sans-serif}
+button {cursor:pointer}
+button:active {transform:scale(.97)}
+.hidden-section {display:none!important}
+.section {animation:appear .35s ease}
+@keyframes appear {
+ from {opacity:0;transform:translateY(12px)}
+ to {opacity:1;transform:translateY(0)}
+}
+.card {
+ background:white;
+ border-radius:24px;
+ border:2px solid #eeeaff;
+ box-shadow:0 5px 0 #e8e4fa;
+}
+.menu-card {
+ transition:.25s;
+ cursor:pointer;
+}
+.menu-card:hover {
+ transform:translateY(-5px);
+ box-shadow:0 10px 0 #e5e0fa;
+}
+.btn {
+ border-radius:16px;
+ padding:12px 20px;
+ font-weight:900;
+ transition:.2s;
+}
+.btn-primary {background:var(--purple);color:white;box-shadow:0 5px 0 #5144A5}
+.btn-secondary {background:#eeeaff;color:#5144A5}
+.btn-pink {background:#FFDFEA;color:#A83F69}
+.btn-yellow {background:#FFF0BF;color:#86620C}
+.btn-mint {background:#DDF8EF;color:#287D60}
+.btn:disabled {opacity:.5;cursor:not-allowed}
+.topbar {
+ background:white;
+ border-bottom:2px solid #eeeaff;
+ position:sticky;
+ top:0;
+ z-index:40;
+}
+.nav-active {background:#7565D8!important;color:white!important}
+.pill {
+ display:inline-block;
+ padding:5px 12px;
+ border-radius:99px;
+ font-size:12px;
+ font-weight:900;
+}
+.tab-active {
+ background:#7565D8!important;
+ color:white!important;
+}
+.tab {
+ background:#eeeaff;
+ color:#5144A5;
+ padding:10px 15px;
+ border-radius:12px;
+ font-weight:900;
+ white-space:nowrap;
+}
+.progress-track {
+ height:12px;
+ background:#eeeaff;
+ border-radius:99px;
+ overflow:hidden;
+}
+.progress-fill {
+ height:100%;
+ background:linear-gradient(90deg,#80DDBB,#7565D8);
+ transition:width .3s;
+}
+.input {
+ width:100%;
+ border:2px solid #e8e4fa;
+ padding:12px 15px;
+ border-radius:13px;
+ outline:none;
+ background:white;
+}
+.input:focus {border-color:#7565D8}
+.flip-card {
+ perspective:1000px;
+ min-height:225px;
+ cursor:pointer;
+}
+.flip-inner {
+ position:relative;
+ width:100%;
+ min-height:225px;
+ transition:transform .65s;
+ transform-style:preserve-3d;
+}
+.flip-card.flipped .flip-inner {transform:rotateY(180deg)}
+.flip-front,.flip-back {
+ position:absolute;
+ inset:0;
+ backface-visibility:hidden;
+ border-radius:22px;
+ padding:25px;
+ display:flex;
+ flex-direction:column;
+ justify-content:center;
+ align-items:center;
+ text-align:center;
+}
+.flip-back {transform:rotateY(180deg);background:#eeeaff}
+.answer-option {
+ display:block;
+ width:100%;
+ text-align:left;
+ padding:14px;
+ margin:9px 0;
+ border:2px solid #e9e5f8;
+ border-radius:15px;
+ background:white;
+ font-weight:800;
+ transition:.2s;
+}
+.answer-option:hover {border-color:#7565D8;background:#f8f6ff}
+.answer-option.correct {background:#DDF8EF;border-color:#44B98C;color:#207452}
+.answer-option.wrong {background:#FFE4EE;border-color:#EE7A9F;color:#A83F69}
+.answer-option:disabled {cursor:default}
+.note {
+ background:#FFF4CC;
+ border-radius:5px 20px 20px 20px;
+ padding:17px;
+ box-shadow:3px 5px 10px #d9d3c5;
+ transform:rotate(-1deg);
+}
+.note:nth-child(even) {background:#DDF8EF;transform:rotate(1deg)}
+.note:nth-child(3n) {background:#FFE4EE}
+.cube-icon {
+ display:inline-flex;
+ align-items:center;
+ justify-content:center;
+ width:75px;
+ height:75px;
+ font-size:35px;
+ border-radius:23px;
+}
+.diagram {
+ background:#f8f7ff;
+ border:2px dashed #c9c1f2;
+ border-radius:18px;
+}
+.game-item {
+ padding:14px;
+ border:2px solid #e8e4fa;
+ border-radius:15px;
+ background:white;
+ font-weight:900;
+ cursor:pointer;
+}
+.game-item.selected {border-color:#7565D8;background:#eeeaff}
+.game-item.matched {border-color:#55BD93;background:#DDF8EF;opacity:.7}
+.footer {background:#5144A5;color:white}
+@media(max-width:640px) {
+ .topbar .brand-text {font-size:13px}
+ .flip-card,.flip-inner {min-height:245px}
+ main {padding-left:14px!important;padding-right:14px!important}
+}
+</style>
+</head>
+
+<body>
+
+<!-- HEADER -->
+<header class="topbar">
+ <div class="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between gap-2">
+  <div class="flex items-center gap-3">
+   <div class="w-11 h-11 rounded-2xl bg-purple-100 text-purple-700 flex items-center justify-center text-xl">
+    <i class="fa-solid fa-cubes-stacked"></i>
+   </div>
+   <div>
+    <div class="font-heading font-bold text-purple-800 brand-text">MISI BANGUN RUANG</div>
+    <div class="text-xs font-bold text-gray-500">TKA MATEMATIKA • KELAS IX</div>
+   </div>
+  </div>
+  <div class="flex items-center gap-2">
+   <button onclick="goHome()" class="btn btn-secondary text-sm">
+    <i class="fa-solid fa-house"></i>
+    <span class="hidden sm:inline"> Menu</span>
+   </button>
+   <button id="audioBtn" onclick="toggleAudio()" class="btn btn-mint text-sm">
+    <i class="fa-solid fa-volume-high"></i> <span>Audio ON</span>
+   </button>
+  </div>
+ </div>
+</header>
+
+<main class="max-w-7xl mx-auto px-5 py-6">
+
+<!-- HOME -->
+<section id="home" class="section">
+ <div class="rounded-[30px] overflow-hidden p-6 md:p-10 mb-8"
+ style="background:linear-gradient(120deg,#E9E4FF,#FFE5EF,#FFF3CE)">
+  <div class="grid md:grid-cols-2 gap-7 items-center">
+   <div>
+    <span class="pill bg-white text-purple-700 mb-4">🚀 PETUALANGAN MATEMATIKA</span>
+    <h1 class="text-4xl md:text-6xl font-bold leading-tight text-purple-900">
+     Misi Bangun<br>Ruang!
+    </h1>
+    <h2 class="text-xl text-purple-700 mt-3 font-bold">
+     Jelajahi Kubus, Balok, dan Dunia Volume
+    </h2>
+    <p class="mt-4 text-gray-700 font-bold leading-relaxed">
+     Siap menjadi detektif matematika? Mari mengukur, menghitung,
+     bereksperimen, dan menyelesaikan tantangan bangun ruang
+     dalam kehidupan sehari-hari!
+    </p>
+    <div class="flex flex-wrap gap-3 mt-6">
+     <button onclick="showSection('tujuan')" class="btn btn-primary">
+      Mulai Belajar <i class="fa-solid fa-rocket ml-2"></i>
+     </button>
+     <button onclick="showSection('simulasi')" class="btn btn-secondary">
+      Coba Simulasi
+     </button>
+    </div>
+    <div class="flex gap-3 mt-6 flex-wrap text-sm font-bold">
+     <span class="pill bg-white">📚 Kelas IX</span>
+     <span class="pill bg-white">📐 TKA Matematika</span>
+     <span class="pill bg-white">⏱️ Belajar Interaktif</span>
+    </div>
+   </div>
+   <div class="text-center">
+    <img
+     src="https://i.ibb.co.com/hFJHmgp2/Desain-tanpa-judul-9.png"
+     alt="Ilustrasi pembelajaran"
+     class="w-full max-w-lg mx-auto rounded-3xl object-contain"
+     onerror="this.style.display='none';document.getElementById('heroFallback').style.display='block'">
+    <div id="heroFallback" style="display:none" class="text-9xl py-8">🧑‍🏫📦📐</div>
+   </div>
+  </div>
+ </div>
+
+ <div class="flex justify-between items-center mb-4">
+  <h2 class="text-2xl font-bold text-purple-900">🎯 Petualangan Belajar</h2>
+  <span class="text-sm text-gray-500 font-bold">Pilih misimu!</span>
+ </div>
+
+ <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+  <div class="card menu-card p-5" onclick="showSection('tujuan')">
+   <div class="cube-icon bg-purple-100">🎯</div>
+   <h3 class="font-bold mt-3">Tujuan Belajar</h3>
+   <p class="text-xs text-gray-500 mt-1">Kenali targetmu</p>
+  </div>
+  <div class="card menu-card p-5" onclick="showSection('pemantik')">
+   <div class="cube-icon bg-pink-100">💡</div>
+   <h3 class="font-bold mt-3">Pemantik</h3>
+   <p class="text-xs text-gray-500 mt-1">Bangun rasa ingin tahu</p>
+  </div>
+  <div class="card menu-card p-5" onclick="showSection('materi')">
+   <div class="cube-icon bg-yellow-100">📚</div>
+   <h3 class="font-bold mt-3">Materi Belajar</h3>
+   <p class="text-xs text-gray-500 mt-1">Pahami konsep</p>
+  </div>
+  <div class="card menu-card p-5" onclick="showSection('simulasi')">
+   <div class="cube-icon bg-blue-100">🧪</div>
+   <h3 class="font-bold mt-3">Simulasi</h3>
+   <p class="text-xs text-gray-500 mt-1">Eksperimen ukuran</p>
+  </div>
+  <div class="card menu-card p-5" onclick="showSection('kuis')">
+   <div class="cube-icon bg-mint-100">🏆</div>
+   <h3 class="font-bold mt-3">Kuis TKA</h3>
+   <p class="text-xs text-gray-500 mt-1">Uji kemampuanmu</p>
+  </div>
+  <div class="card menu-card p-5" onclick="showSection('games')">
+   <div class="cube-icon bg-pink-100">🎮</div>
+   <h3 class="font-bold mt-3">Games</h3>
+   <p class="text-xs text-gray-500 mt-1">Main sambil belajar</p>
+  </div>
+  <div class="card menu-card p-5" onclick="showSection('kesimpulan')">
+   <div class="cube-icon bg-yellow-100">🌟</div>
+   <h3 class="font-bold mt-3">Kesimpulan</h3>
+   <p class="text-xs text-gray-500 mt-1">Ingat kembali</p>
+  </div>
+  <div class="card menu-card p-5" onclick="showSection('refleksi')">
+   <div class="cube-icon bg-blue-100">💬</div>
+   <h3 class="font-bold mt-3">Papan Refleksi</h3>
+   <p class="text-xs text-gray-500 mt-1">Bagikan pengalaman</p>
+  </div>
+ </div>
+
+ <div class="card p-5 mt-7">
+  <h3 class="font-bold text-purple-800 text-lg mb-3">
+   <i class="fa-solid fa-circle-info mr-2"></i>Petunjuk Penggunaan
+  </h3>
+  <div class="grid md:grid-cols-3 gap-4 text-sm font-bold">
+   <div class="flex gap-3"><span class="text-2xl">👆</span><p>Klik menu untuk membuka setiap aktivitas belajar.</p></div>
+   <div class="flex gap-3"><span class="text-2xl">🧠</span><p>Baca materi dan cobalah simulasi sebelum mengerjakan kuis.</p></div>
+   <div class="flex gap-3"><span class="text-2xl">🏅</span><p>Selesaikan tantangan dan raih sertifikat hasil belajar.</p></div>
+  </div>
+ </div>
+</section>
+
+<!-- TUJUAN -->
+<section id="tujuan" class="section hidden-section">
+ <div class="mb-6">
+  <span class="pill bg-purple-100 text-purple-700">01 • TARGET MISI</span>
+  <h1 class="text-3xl font-bold text-purple-900 mt-2">🎯 Tujuan Pembelajaran</h1>
+  <p class="text-gray-600 mt-2">Setelah pembelajaran, peserta didik diharapkan mampu:</p>
+ </div>
+ <div class="grid md:grid-cols-2 gap-4">
+  <div class="card p-5">
+   <div class="text-3xl mb-3">📦</div>
+   <h3 class="font-bold text-lg">Memahami Konsep</h3>
+   <p class="text-gray-600 mt-2">Mengidentifikasi unsur kubus dan balok serta menjelaskan konsep volume dan luas permukaannya.</p>
+  </div>
+  <div class="card p-5">
+   <div class="text-3xl mb-3">📐</div>
+   <h3 class="font-bold text-lg">Menghitung dan Mengestimasi</h3>
+   <p class="text-gray-600 mt-2">Menghitung serta memperkirakan volume dan luas permukaan kubus, balok, dan bangun gabungan.</p>
+  </div>
+  <div class="card p-5">
+   <div class="text-3xl mb-3">🔄</div>
+   <h3 class="font-bold text-lg">Konversi Satuan</h3>
+   <p class="text-gray-600 mt-2">Mengonversi satuan volume baku, termasuk cm³, dm³, m³, liter, dan mililiter.</p>
+  </div>
+  <div class="card p-5">
+   <div class="text-3xl mb-3">🧩</div>
+   <h3 class="font-bold text-lg">Pemecahan Masalah</h3>
+   <p class="text-gray-600 mt-2">Menyelesaikan permasalahan kontekstual yang melibatkan volume dan luas permukaan bangun ruang.</p>
+  </div>
+  <div class="card p-5 md:col-span-2">
+   <div class="text-3xl mb-3">🔍</div>
+   <h3 class="font-bold text-lg">Analisis dan Evaluasi</h3>
+   <p class="text-gray-600 mt-2">Menganalisis serta mengevaluasi kebenaran beberapa pernyataan terkait luas permukaan dan volume kubus, balok, dan bangun gabungan disertai alasan matematis.</p>
+  </div>
+ </div>
+ <div class="card p-6 mt-6 bg-purple-50">
+  <h3 class="font-bold text-purple-800 text-lg">🌱 Manfaat dalam Kehidupan</h3>
+  <p class="mt-2 text-gray-700">Kemampuan ini berguna untuk menghitung kapasitas bak air, kebutuhan kardus kemasan, ukuran lemari, jumlah cat untuk melapisi benda, serta kebutuhan ruang penyimpanan.</p>
+ </div>
+ <button onclick="showSection('pemantik')" class="btn btn-primary mt-6">Lanjut ke Pemantik →</button>
+</section>
+
+<!-- PEMANTIK -->
+<section id="pemantik" class="section hidden-section">
+ <span class="pill bg-pink-100 text-pink-700">02 • THINK & WONDER</span>
+ <h1 class="text-3xl font-bold text-purple-900 mt-2 mb-3">💡 Pertanyaan Pemantik</h1>
+ <div class="card p-5 mb-5 bg-yellow-50">
+  <h3 class="font-bold text-lg">🧘 Mindful Moment</h3>
+  <p class="mt-2">Tarik napas perlahan, perhatikan benda-benda di sekitarmu. Bayangkan sebuah kardus, lemari, atau kotak penyimpanan. Semuanya memiliki ukuran dan kapasitas yang dapat dihitung!</p>
+ </div>
+ <div class="grid md:grid-cols-2 gap-5">
+  <div class="flip-card" onclick="this.classList.toggle('flipped')">
+   <div class="flip-inner">
+    <div class="flip-front bg-purple-100">
+     <div class="text-6xl">📦</div>
+     <h3 class="text-xl font-bold mt-4">Misi 1: Kotak Hadiah</h3>
+     <p class="mt-2">Jika sebuah kotak berukuran 20 × 15 × 10 cm, berapa banyak ruang di dalamnya?</p>
+     <span class="text-sm mt-3 font-bold text-purple-700">Klik untuk membuka jawaban</span>
+    </div>
+    <div class="flip-back">
+     <h3 class="font-bold text-purple-800 text-xl">Mari Berpikir!</h3>
+     <p class="mt-3">Kita menghitung volume dengan mengalikan panjang × lebar × tinggi.</p>
+     <p class="text-2xl font-bold mt-4">20 × 15 × 10 = 3.000 cm³</p>
+     <p class="text-sm mt-2">Apa hubungan ukuran sisi dengan kapasitas kotak?</p>
+    </div>
+   </div>
+  </div>
+  <div class="flip-card" onclick="this.classList.toggle('flipped')">
+   <div class="flip-inner">
+    <div class="flip-front bg-pink-100">
+     <div class="text-6xl">🎁</div>
+     <h3 class="text-xl font-bold mt-4">Misi 2: Bungkus Kado</h3>
+     <p class="mt-2">Mengapa membungkus kotak membutuhkan luas kertas, bukan volume?</p>
+     <span class="text-sm mt-3 font-bold text-pink-700">Klik untuk membuka jawaban</span>
+    </div>
+    <div class="flip-back">
+     <h3 class="font-bold text-purple-800 text-xl">Mari Berpikir!</h3>
+     <p class="mt-3">Kertas menutupi bagian luar benda. Jadi, kita menghitung luas seluruh permukaan kotak.</p>
+     <p class="text-lg font-bold mt-4">Luas permukaan = luas seluruh sisi</p>
+     <p class="text-sm mt-2">Bagaimana jika kotaknya berbentuk kubus?</p>
+    </div>
+   </div>
+  </div>
+ </div>
+ <div class="card p-5 mt-6">
+  <h3 class="font-bold text-lg">🗣️ Diskusi Singkat</h3>
+  <p class="text-gray-600 mt-2">Tuliskan satu contoh benda di rumah atau sekolah yang berbentuk kubus atau balok. Menurutmu, kapan kita perlu menghitung volume dan kapan perlu menghitung luas permukaannya?</p>
+  <textarea id="pemantikAnswer" class="input mt-3" rows="3" placeholder="Tuliskan pemikiranmu..."></textarea>
+  <button class="btn btn-primary mt-3" onclick="savePemantik()">Simpan Jawaban</button>
+  <span id="pemantikMsg" class="text-green-700 font-bold ml-2"></span>
+ </div>
+ <button onclick="showSection('materi')" class="btn btn-primary mt-6">Pelajari Materi →</button>
+</section>
+
+<!-- MATERI -->
+<section id="materi" class="section hidden-section">
+ <span class="pill bg-yellow-100 text-yellow-800">03 • EXPLORE</span>
+ <h1 class="text-3xl font-bold text-purple-900 mt-2">📚 Materi Belajar Interaktif</h1>
+ <p class="text-gray-600 mt-2 mb-5">Pilih submateri yang ingin kamu pelajari.</p>
+
+ <div class="flex gap-2 overflow-x-auto pb-3 mb-5">
+  <button class="tab tab-active" onclick="materialTab('kubus',this)">Kubus</button>
+  <button class="tab" onclick="materialTab('balok',this)">Balok</button>
+  <button class="tab" onclick="materialTab('konversi',this)">Konversi Satuan</button>
+  <button class="tab" onclick="materialTab('gabungan',this)">Bangun Gabungan</button>
+  <button class="tab" onclick="materialTab('analisis',this)">Analisis</button>
+ </div>
+
+ <div id="mat-kubus" class="material-content">
+  <div class="card p-6">
+   <div class="grid md:grid-cols-2 gap-6 items-center">
+    <div>
+     <h2 class="text-2xl font-bold text-purple-800">🧊 1. Kubus</h2>
+     <p class="mt-3">Kubus merupakan bangun ruang yang memiliki 6 sisi berbentuk persegi sama besar, 12 rusuk sama panjang, dan 8 titik sudut.</p>
+     <div class="diagram p-4 mt-4 text-center">
+      <svg viewBox="0 0 300 220" class="w-full max-w-xs mx-auto">
+       <polygon points="65,70 175,70 235,30 125,30" fill="#D9CEFF" stroke="#6653C7" stroke-width="3"/>
+       <polygon points="65,70 175,70 175,180 65,180" fill="#A99AEF" stroke="#6653C7" stroke-width="3"/>
+       <polygon points="175,70 235,30 235,140 175,180" fill="#8472D9" stroke="#6653C7" stroke-width="3"/>
+       <text x="105" y="125" font-size="15" fill="white" font-weight="bold">s</text>
+       <text x="205" y="113" font-size="15" fill="white" font-weight="bold">s</text>
+       <text x="138" y="23" font-size="15" fill="#5144A5">s</text>
+      </svg>
+      <p class="text-sm font-bold text-purple-700">Ilustrasi kubus dengan panjang rusuk s</p>
+     </div>
+    </div>
+    <div>
+     <div class="bg-purple-50 rounded-2xl p-5">
+      <h3 class="font-bold text-lg">Rumus Volume</h3>
+      <p class="text-3xl font-bold text-purple-800 my-3">V = s³</p>
+      <p>V = s × s × s</p>
+     </div>
+     <div class="bg-pink-50 rounded-2xl p-5 mt-3">
+      <h3 class="font-bold text-lg">Rumus Luas Permukaan</h3>
+      <p class="text-3xl font-bold text-pink-700 my-3">LP = 6s²</p>
+      <p>LP = 6 × s × s</p>
+     </div>
+     <div class="mt-4 p-4 bg-yellow-50 rounded-xl">
+      <b>Contoh:</b> Rusuk kubus 5 cm.
+      <p>V = 5³ = 125 cm³</p>
+      <p>LP = 6 × 25 = 150 cm²</p>
+     </div>
+    </div>
+   </div>
+  </div>
+ </div>
+
+ <div id="mat-balok" class="material-content hidden-section">
+  <div class="card p-6">
+   <h2 class="text-2xl font-bold text-purple-800">📦 2. Balok</h2>
+   <div class="grid md:grid-cols-2 gap-5 mt-4 items-center">
+    <div>
+     <svg viewBox="0 0 330 220" class="w-full max-w-sm mx-auto">
+      <polygon points="45,70 190,70 260,30 115,30" fill="#C6F1E4" stroke="#299B77" stroke-width="3"/>
+      <polygon points="45,70 190,70 190,170 45,170" fill="#80DDBB" stroke="#299B77" stroke-width="3"/>
+      <polygon points="190,70 260,30 260,130 190,170" fill="#4FBA96" stroke="#299B77" stroke-width="3"/>
+      <text x="105" y="190" fill="#26785F" font-size="15">p</text>
+      <text x="270" y="90" fill="#26785F" font-size="15">l</text>
+      <text x="25" y="120" fill="#26785F" font-size="15">t</text>
+     </svg>
+     <p class="text-center font-bold text-sm">Ilustrasi balok: panjang (p), lebar (l), tinggi (t)</p>
+    </div>
+    <div>
+     <p>Balok memiliki 6 sisi berbentuk persegi panjang, 12 rusuk, dan 8 titik sudut.</p>
+     <div class="bg-mint-50 p-5 rounded-2xl mt-4">
+      <h3 class="font-bold">Volume Balok</h3>
+      <p class="text-3xl font-bold text-green-700 mt-2">V = p × l × t</p>
+     </div>
+     <div class="bg-blue-50 p-5 rounded-2xl mt-3">
+      <h3 class="font-bold">Luas Permukaan Balok</h3>
+      <p class="text-2xl font-bold text-blue-700 mt-2">LP = 2(pl + pt + lt)</p>
+     </div>
+    </div>
+   </div>
+   <div class="bg-yellow-50 rounded-2xl p-5 mt-5">
+    <b>Contoh:</b> Balok dengan p = 8 cm, l = 5 cm, t = 4 cm.
+    <p>V = 8 × 5 × 4 = <b>160 cm³</b></p>
+    <p>LP = 2(40 + 32 + 20) = <b>184 cm²</b></p>
+   </div>
+  </div>
+ </div>
+
+ <div id="mat-konversi" class="material-content hidden-section">
+  <div class="card p-6">
+   <h2 class="text-2xl font-bold text-purple-800">🔄 3. Konversi Satuan Volume</h2>
+   <p class="mt-3">Satuan volume menunjukkan ruang yang ditempati suatu benda.</p>
+   <div class="grid grid-cols-2 md:grid-cols-3 gap-3 mt-5">
+    <div class="bg-purple-50 p-4 rounded-xl text-center"><b>1 m³</b><p>= 1.000 dm³</p></div>
+    <div class="bg-pink-50 p-4 rounded-xl text-center"><b>1 dm³</b><p>= 1.000 cm³</p></div>
+    <div class="bg-yellow-50 p-4 rounded-xl text-center"><b>1 cm³</b><p>= 1 mL</p></div>
+    <div class="bg-blue-50 p-4 rounded-xl text-center"><b>1 dm³</b><p>= 1 liter</p></div>
+    <div class="bg-mint-50 p-4 rounded-xl text-center"><b>1 m³</b><p>= 1.000 liter</p></div>
+    <div class="bg-purple-50 p-4 rounded-xl text-center"><b>1 liter</b><p>= 1.000 mL</p></div>
+   </div>
+   <div class="diagram p-5 mt-5">
+    <h3 class="font-bold text-lg">Tangga satuan kubik</h3>
+    <div class="grid grid-cols-3 md:grid-cols-6 gap-2 mt-4 text-center font-bold">
+     <div class="bg-purple-100 rounded-xl p-3">km³</div>
+     <div class="bg-purple-100 rounded-xl p-3">hm³</div>
+     <div class="bg-purple-100 rounded-xl p-3">dam³</div>
+     <div class="bg-purple-100 rounded-xl p-3">m³</div>
+     <div class="bg-purple-100 rounded-xl p-3">dm³</div>
+     <div class="bg-purple-100 rounded-xl p-3">cm³</div>
+    </div>
+    <p class="mt-4 font-bold text-purple-800">Turun satu tingkat × 1.000 | Naik satu tingkat ÷ 1.000</p>
+    <p class="text-sm mt-2">Ingat: untuk satuan panjang faktor 10, sedangkan satuan volume faktor 1.000 setiap tingkat.</p>
+   </div>
+   <div class="bg-yellow-50 p-5 rounded-2xl mt-5">
+    <b>Contoh:</b> 2 m³ = 2 × 1.000 = <b>2.000 liter</b>.
+   </div>
+  </div>
+ </div>
+
+ <div id="mat-gabungan" class="material-content hidden-section">
+  <div class="card p-6">
+   <h2 class="text-2xl font-bold text-purple-800">🧩 4. Bangun Ruang Gabungan</h2>
+   <p class="mt-3">Bangun gabungan terbentuk dari dua atau lebih bangun ruang yang disatukan.</p>
+   <div class="diagram p-5 mt-5 text-center">
+    <svg viewBox="0 0 330 220" class="w-full max-w-sm mx-auto">
+     <rect x="35" y="105" width="180" height="85" fill="#A99AEF" stroke="#5144A5" stroke-width="3"/>
+     <polygon points="35,105 105,65 285,65 215,105" fill="#D9CEFF" stroke="#5144A5" stroke-width="3"/>
+     <polygon points="215,105 285,65 285,150 215,190" fill="#8472D9" stroke="#5144A5" stroke-width="3"/>
+     <rect x="95" y="25" width="80" height="80" fill="#80DDBB" stroke="#299B77" stroke-width="3"/>
+     <text x="110" y="18" font-size="13" fill="#26785F">Kubus</text>
+     <text x="85" y="155" font-size="15" fill="white">Balok</text>
+    </svg>
+    <p class="font-bold">Contoh: gabungan kubus dan balok</p>
+   </div>
+   <div class="grid md:grid-cols-2 gap-4 mt-5">
+    <div class="bg-purple-50 rounded-xl p-4">
+     <h3 class="font-bold">Volume gabungan</h3>
+     <p class="mt-2">Jumlahkan volume bagian-bagian bangun jika tidak ada tumpang tindih.</p>
+     <p class="font-bold text-purple-800 mt-2">V total = V₁ + V₂</p>
+    </div>
+    <div class="bg-pink-50 rounded-xl p-4">
+     <h3 class="font-bold">Luas permukaan gabungan</h3>
+     <p class="mt-2">Hitung hanya bidang yang terlihat dari luar. Bidang yang saling menempel tidak dihitung.</p>
+    </div>
+   </div>
+   <div class="bg-yellow-50 rounded-xl p-5 mt-4">
+    <b>Contoh:</b> Kubus sisi 4 cm menempel pada balok berukuran 8 × 4 × 4 cm.
+    <p>V total = 4³ + (8 × 4 × 4) = 64 + 128 = <b>192 cm³</b>.</p>
+    <p class="mt-2">Untuk luas permukaan, bidang yang saling menempel harus dikurangi dua kali dari jumlah luas permukaan masing-masing bangun.</p>
+   </div>
+  </div>
+ </div>
+
+ <div id="mat-analisis" class="material-content hidden-section">
+  <div class="card p-6">
+   <h2 class="text-2xl font-bold text-purple-800">🔍 5. Analisis dan Evaluasi Pernyataan</h2>
+   <p class="mt-3">Jangan hanya menghitung. Periksa apakah pernyataan matematika benar, salah, atau membutuhkan syarat tertentu.</p>
+   <div class="space-y-3 mt-5">
+    <div class="bg-mint-50 p-4 rounded-xl">
+     <b>Pernyataan A:</b> Jika rusuk kubus menjadi 2 kali semula, volumenya menjadi 2 kali.
+     <p class="text-green-800 font-bold mt-2">SALAH. Volume menjadi 2³ = 8 kali.</p>
+    </div>
+    <div class="bg-blue-50 p-4 rounded-xl">
+     <b>Pernyataan B:</b> Jika semua ukuran balok dikali 2, luas permukaannya menjadi 4 kali.
+     <p class="text-green-800 font-bold mt-2">BENAR. Luas berubah menurut kuadrat faktor skala.</p>
+    </div>
+    <div class="bg-yellow-50 p-4 rounded-xl">
+     <b>Pernyataan C:</b> 1.500 cm³ sama dengan 1,5 liter.
+     <p class="text-green-800 font-bold mt-2">BENAR. Karena 1 cm³ = 1 mL.</p>
+    </div>
+   </div>
+   <div class="mt-5 p-4 rounded-xl bg-purple-50">
+    <b>Strategi:</b> Identifikasi informasi → pilih rumus → hitung → periksa satuan → evaluasi hasil.
+   </div>
+  </div>
+ </div>
+ <button onclick="showSection('simulasi')" class="btn btn-primary mt-6">Coba Simulasi →</button>
+</section>
+
+<!-- SIMULASI -->
+<section id="simulasi" class="section hidden-section">
+ <span class="pill bg-blue-100 text-blue-700">04 • EXPERIMENT</span>
+ <h1 class="text-3xl font-bold text-purple-900 mt-2">🧪 Laboratorium Bangun Ruang</h1>
+ <p class="text-gray-600 mt-2 mb-5">Ubah ukuran bangun dan amati perubahan volume serta luas permukaannya.</p>
+
+ <div class="card p-5">
+  <div class="flex flex-wrap gap-2 mb-5">
+   <button id="typeKubus" class="tab tab-active" onclick="setShape('kubus')">🧊 Kubus</button>
+   <button id="typeBalok" class="tab" onclick="setShape('balok')">📦 Balok</button>
+  </div>
+  <div class="grid md:grid-cols-2 gap-6">
+   <div>
+    <div id="kubusControls">
+     <label class="font-bold">Panjang rusuk (cm)</label>
+     <input type="range" min="1" max="30" value="5" id="side" class="w-full mt-3" oninput="calculate()">
+     <div class="flex justify-between font-bold text-purple-800"><span>1 cm</span><span id="sideValue">5 cm</span><span>30 cm</span></div>
+    </div>
+    <div id="balokControls" class="hidden-section space-y-4">
+     <div><label class="font-bold">Panjang (cm)</label><input type="range" min="1" max="30" value="8" id="length" class="w-full" oninput="calculate()"><span id="lengthValue" class="font-bold text-purple-700">8 cm</span></div>
+     <div><label class="font-bold">Lebar (cm)</label><input type="range" min="1" max="30" value="5" id="width" class="w-full" oninput="calculate()"><span id="widthValue" class="font-bold text-purple-700">5 cm</span></div>
+     <div><label class="font-bold">Tinggi (cm)</label><input type="range" min="1" max="30" value="4" id="height" class="w-full" oninput="calculate()"><span id="heightValue" class="font-bold text-purple-700">4 cm</span></div>
+    </div>
+    <div class="bg-yellow-50 rounded-xl p-4 mt-6">
+     <p class="font-bold">💭 Prediksi</p>
+     <p class="text-sm mt-1">Apa yang terjadi pada volume jika semua ukuran diperbesar dua kali?</p>
+     <p class="text-sm text-purple-800 font-bold mt-2">Coba ubah ukuran dan amati hasilnya!</p>
+    </div>
+   </div>
+   <div class="diagram p-5 flex flex-col items-center justify-center">
+    <div id="shapeVisual" class="text-9xl transition-all">🧊</div>
+    <h3 id="shapeLabel" class="font-bold text-xl text-purple-800 mt-3">Kubus</h3>
+    <p id="shapeDimension" class="text-sm text-gray-600 mt-2">5 × 5 × 5 cm</p>
+   </div>
+  </div>
+  <div class="grid grid-cols-2 gap-4 mt-6">
+   <div class="bg-purple-100 rounded-2xl p-5">
+    <p class="font-bold text-purple-700">VOLUME</p>
+    <p id="volumeResult" class="text-3xl font-bold text-purple-900 mt-2">125 cm³</p>
+   </div>
+   <div class="bg-pink-100 rounded-2xl p-5">
+    <p class="font-bold text-pink-700">LUAS PERMUKAAN</p>
+    <p id="areaResult" class="text-3xl font-bold text-pink-800 mt-2">150 cm²</p>
+   </div>
+  </div>
+  <div class="mt-4 p-4 bg-mint-50 rounded-xl">
+   <p class="font-bold">✨ Penjelasan otomatis</p>
+   <p id="calculationExplanation" class="mt-2 text-gray-700"></p>
+  </div>
+ </div>
+
+ <div class="card p-5 mt-6">
+  <h3 class="font-bold text-lg">🏗️ Tantangan Mini: Kapasitas Tangki</h3>
+  <p class="text-sm text-gray-600 mt-1">Tangki berbentuk balok berukuran 100 cm × 50 cm × 60 cm. Berapa liter air yang dapat ditampung?</p>
+  <div class="flex flex-wrap gap-2 mt-4">
+   <input id="tankAnswer" class="input flex-1 min-w-0" type="number" placeholder="Jawaban dalam liter">
+   <button onclick="checkTank()" class="btn btn-primary">Periksa</button>
+  </div>
+  <p id="tankFeedback" class="font-bold mt-3"></p>
+ </div>
+ <button onclick="showSection('kuis')" class="btn btn-primary mt-6">Menuju Kuis →</button>
+</section>
+
+<!-- KUIS -->
+<section id="kuis" class="section hidden-section">
+ <span class="pill bg-yellow-100 text-yellow-800">05 • CHALLENGE</span>
+ <h1 class="text-3xl font-bold text-purple-900 mt-2">🏆 Kuis TKA Matematika</h1>
+ <p class="text-gray-600 mt-2 mb-5">Pilih level tantangan sesuai kesiapan belajarmu.</p>
+
+ <div id="quizStart" class="card p-6">
+  <label class="font-bold">Nama peserta (untuk sertifikat)</label>
+  <input id="studentName" class="input mt-2 mb-5" placeholder="Contoh: Shaka" maxlength="60">
+  <div class="grid md:grid-cols-3 gap-4">
+   <button onclick="startQuiz('mudah')" class="rounded-2xl p-5 bg-mint-50 border-2 border-green-200 text-left">
+    <div class="text-4xl">🌱</div>
+    <h3 class="font-bold text-xl mt-3">Level Mudah</h3>
+    <p class="text-sm mt-1">Pemahaman konsep dan perhitungan dasar.</p>
+    <span class="pill bg-green-100 mt-3">10 soal</span>
+   </button>
+   <button onclick="startQuiz('sedang')" class="rounded-2xl p-5 bg-yellow-50 border-2 border-yellow-200 text-left">
+    <div class="text-4xl">⭐</div>
+    <h3 class="font-bold text-xl mt-3">Level Sedang</h3>
+    <p class="text-sm mt-1">Penerapan konsep dan masalah kontekstual.</p>
+    <span class="pill bg-yellow-100 mt-3">10 soal</span>
+   </button>
+   <button onclick="startQuiz('sulit')" class="rounded-2xl p-5 bg-pink-50 border-2 border-pink-200 text-left">
+    <div class="text-4xl">🔥</div>
+    <h3 class="font-bold text-xl mt-3">Level Sulit</h3>
+    <p class="text-sm mt-1">Penalaran, gabungan, dan evaluasi pernyataan.</p>
+    <span class="pill bg-pink-100 mt-3">10 soal</span>
+   </button>
+  </div>
+ </div>
+
+ <div id="quizPlay" class="card p-5 hidden-section">
+  <div class="flex flex-wrap justify-between items-center gap-3">
+   <div><span id="quizLevel" class="pill bg-purple-100 text-purple-800">Level Mudah</span><p id="quizCounter" class="font-bold mt-2">Soal 1 dari 10</p></div>
+   <div class="text-right"><span class="text-sm font-bold">Skor sementara</span><p id="liveScore" class="text-2xl font-bold text-purple-800">0</p></div>
+  </div>
+  <div class="progress-track mt-4"><div id="quizProgress" class="progress-fill" style="width:10%"></div></div>
+  <div class="mt-5">
+   <h3 id="questionText" class="text-xl font-bold leading-relaxed"></h3>
+   <div id="optionsArea" class="mt-4"></div>
+   <div id="feedback" class="rounded-xl p-4 mt-4 hidden-section"></div>
+  </div>
+  <div class="flex flex-wrap justify-between gap-2 mt-5">
+   <button onclick="exitQuiz()" class="btn btn-secondary">Keluar / Ganti Level</button>
+   <button id="nextQuestion" onclick="nextQuestion()" class="btn btn-primary" disabled>Selanjutnya →</button>
+  </div>
+ </div>
+
+ <div id="quizResult" class="card p-6 text-center hidden-section">
+  <div class="text-7xl">🏆</div>
+  <h2 class="text-3xl font-bold text-purple-900 mt-3">Misi Selesai!</h2>
+  <p id="resultName" class="mt-2 font-bold"></p>
+  <p id="resultLevel" class="text-gray-500"></p>
+  <div class="grid grid-cols-2 gap-3 mt-5">
+   <div class="bg-purple-50 rounded-xl p-4"><p class="text-sm">Skor Akhir</p><p id="finalScore" class="text-4xl font-bold text-purple-800">0</p></div>
+   <div class="bg-mint-50 rounded-xl p-4"><p class="text-sm">Jawaban Benar</p><p id="finalCorrect" class="text-4xl font-bold text-green-700">0/10</p></div>
+  </div>
+  <div id="certificate" class="border-4 border-double border-purple-400 rounded-2xl p-6 mt-6 bg-yellow-50">
+   <p class="text-sm font-bold text-purple-700 tracking-widest">SERTIFIKAT PENCAPAIAN</p>
+   <h2 class="text-3xl font-bold text-purple-900 mt-3">DETEKTIF BANGUN RUANG</h2>
+   <p class="mt-4">Diberikan kepada:</p>
+   <p id="certName" class="text-2xl font-bold text-purple-800 mt-2"></p>
+   <p class="mt-3">Telah menyelesaikan tantangan TKA Matematika Kelas IX</p>
+   <p id="certScore" class="text-xl font-bold mt-3"></p>
+   <p id="certDate" class="text-sm mt-4"></p>
+   <p class="mt-5 text-sm font-bold">SMPN 2 GANEAS</p>
+  </div>
+  <p id="motivation" class="text-purple-800 font-bold mt-5"></p>
+  <div class="flex flex-wrap justify-center gap-3 mt-5">
+   <button onclick="window.print()" class="btn btn-mint"><i class="fa-solid fa-print"></i> Cetak Sertifikat</button>
+   <button onclick="resetQuiz()" class="btn btn-primary">Coba Lagi</button>
+  </div>
+ </div>
+</section>
+
+<!-- GAMES -->
+<section id="games" class="section hidden-section">
+ <span class="pill bg-pink-100 text-pink-700">06 • PLAY & LEARN</span>
+ <h1 class="text-3xl font-bold text-purple-900 mt-2">🎮 Game: Pasangkan Rumus!</h1>
+ <p class="text-gray-600 mt-2 mb-5">Pilih satu kartu konsep dan satu kartu jawaban yang cocok. Bisa digunakan dengan mouse maupun layar sentuh.</p>
+ <div class="card p-5">
+  <div class="flex justify-between flex-wrap gap-2">
+   <span class="pill bg-purple-100 text-purple-800">Matching Game</span>
+   <span id="matchScore" class="font-bold text-purple-800">Pasangan benar: 0/6</span>
+  </div>
+  <div class="grid md:grid-cols-2 gap-4 mt-5">
+   <div>
+    <h3 class="font-bold mb-3">🧠 KONSEP</h3>
+    <div id="conceptCards" class="space-y-2"></div>
+   </div>
+   <div>
+    <h3 class="font-bold mb-3">💡 JAWABAN</h3>
+    <div id="answerCards" class="space-y-2"></div>
+   </div>
+  </div>
+  <div id="matchFeedback" class="mt-4 p-4 rounded-xl bg-purple-50 font-bold">Pilih kartu konsep terlebih dahulu.</div>
+  <div class="flex flex-wrap gap-3 mt-4">
+   <button onclick="resetGame()" class="btn btn-secondary">Ulangi Game</button>
+   <button onclick="showSection('kesimpulan')" class="btn btn-primary">Selesai →</button>
+  </div>
+ </div>
+ <div class="card p-5 mt-5">
+  <h3 class="font-bold">⭐ Tantangan Bonus: Benar atau Salah?</h3>
+  <p id="trueFalseQuestion" class="font-bold text-lg mt-3">Volume kubus dengan rusuk 3 cm adalah 27 cm³.</p>
+  <div class="flex gap-3 mt-4">
+   <button onclick="checkTF(true)" class="btn btn-mint flex-1">Benar</button>
+   <button onclick="checkTF(false)" class="btn btn-pink flex-1">Salah</button>
+  </div>
+  <p id="tfFeedback" class="font-bold mt-3"></p>
+  <button onclick="nextTF()" class="btn btn-secondary mt-3">Pernyataan berikutnya</button>
+ </div>
+</section>
+
+<!-- KESIMPULAN -->
+<section id="kesimpulan" class="section hidden-section">
+ <span class="pill bg-yellow-100 text-yellow-800">07 • REFLECT & REMEMBER</span>
+ <h1 class="text-3xl font-bold text-purple-900 mt-2">🌟 Kesimpulan Pembelajaran</h1>
+ <div class="card p-6 mt-5">
+  <div class="space-y-4">
+   <div class="flex gap-4 items-start"><span class="text-3xl">🧊</span><div><b>Kubus</b><p>Volume = s³ dan luas permukaan = 6s².</p></div></div>
+   <div class="flex gap-4 items-start"><span class="text-3xl">📦</span><div><b>Balok</b><p>Volume = p × l × t dan luas permukaan = 2(pl + pt + lt).</p></div></div>
+   <div class="flex gap-4 items-start"><span class="text-3xl">🔄</span><div><b>Konversi</b><p>Setiap tingkat satuan kubik berubah dengan faktor 1.000. Ingat 1 dm³ = 1 liter dan 1 cm³ = 1 mL.</p></div></div>
+   <div class="flex gap-4 items-start"><span class="text-3xl">🧩</span><div><b>Bangun Gabungan</b><p>Volume bagian-bagian dijumlahkan jika tidak tumpang tindih. Luas permukaan hanya menghitung sisi luar yang tampak.</p></div></div>
+   <div class="flex gap-4 items-start"><span class="text-3xl">🔍</span><div><b>Penalaran</b><p>Periksa rumus, perhitungan, satuan, dan alasan sebelum menyimpulkan kebenaran pernyataan.</p></div></div>
+  </div>
+ </div>
+ <div class="bg-purple-100 rounded-3xl p-6 mt-5 text-center">
+  <div class="text-5xl">🌈</div>
+  <h2 class="text-2xl font-bold text-purple-900 mt-3">Kamu Hebat!</h2>
+  <p class="mt-2">Matematika bukan sekadar menghitung. Matematika membantu kita memahami dan menyelesaikan masalah di dunia nyata.</p>
+ </div>
+ <button onclick="showSection('refleksi')" class="btn btn-primary mt-6">Isi Refleksi Belajar →</button>
+</section>
+
+<!-- REFLEKSI -->
+<section id="refleksi" class="section hidden-section">
+ <span class="pill bg-blue-100 text-blue-700">08 • REFLECTION WALL</span>
+ <h1 class="text-3xl font-bold text-purple-900 mt-2">💬 Papan Refleksi Kolaboratif</h1>
+ <p class="text-gray-600 mt-2">Bagikan pengalaman belajar dan pesanmu hari ini!</p>
+
+ <div class="card p-5 mt-5">
+  <h3 class="font-bold text-lg">✍️ Tulis Sticky Note-mu</h3>
+  <form id="reflectionForm" class="space-y-3 mt-4">
+   <div>
+    <label class="font-bold text-sm">Nama siswa</label>
+    <input id="reflectionName" class="input mt-1" required placeholder="Contoh: Shaka atau Haflasea">
+   </div>
+   <div>
+    <label class="font-bold text-sm">Perasaan / Kesan</label>
+    <select id="reflectionFeeling" class="input mt-1">
+     <option>😊 Senang dan antusias</option>
+     <option>🤩 Sangat tertarik</option>
+     <option>😐 Biasa saja</option>
+     <option>🤔 Masih bingung</option>
+     <option>💪 Tertantang untuk belajar</option>
+    </select>
+   </div>
+   <div>
+    <label class="font-bold text-sm">Pesan refleksi</label>
+    <textarea id="reflectionMessage" class="input mt-1" rows="3" required placeholder="Hal yang saya pahami hari ini adalah..."></textarea>
+   </div>
+   <button class="btn btn-primary w-full" type="submit"><i class="fa-solid fa-paper-plane mr-2"></i>Tempel Refleksi</button>
+  </form>
+  <p id="reflectionStatus" class="text-sm font-bold mt-3"></p>
+ </div>
+
+ <div class="mt-7">
+  <div class="flex flex-wrap justify-between items-center gap-2 mb-4">
+   <h2 class="text-2xl font-bold text-purple-900">📌 Dinding Cerita Kita</h2>
+   <span id="reflectionCount" class="pill bg-purple-100 text-purple-700">0 refleksi</span>
+  </div>
+  <div id="reflectionWall" class="grid sm:grid-cols-2 md:grid-cols-3 gap-4"></div>
+ </div>
+</section>
+
+</main>
+
+<footer class="footer mt-10 p-7 text-center">
+ <div class="text-3xl mb-2">📐✨</div>
+ <h3 class="font-bold text-xl">MISI BANGUN RUANG</h3>
+ <p class="text-sm mt-2">Media Pembelajaran Interaktif TKA Matematika Kelas IX</p>
+ <p class="text-sm mt-3">by <b>Siti Sundari, M.Pd.</b></p>
+ <p class="text-xs mt-2 opacity-80">© 2026 SMPN 2 Ganeas • Semua hak dilindungi</p>
+</footer>
+
+<script>
+/* ==================================================
+   KONFIGURASI
+================================================== */
+
+// Tempel URL Web App Google Apps Script di sini setelah deployment.
+// Kosongkan jika ingin menggunakan penyimpanan lokal browser.
+const GAS_URL = "";
+
+/* ==================================================
+   NAVIGASI SPA
+================================================== */
+const sections = ['home','tujuan','pemantik','materi','simulasi','kuis','games','kesimpulan','refleksi'];
+
+function showSection(id) {
+ sections.forEach(s => {
+  document.getElementById(s).classList.toggle('hidden-section',s!==id);
+ });
+ window.scrollTo({top:0,behavior:'smooth'});
+ sound('click');
+}
+function goHome(){showSection('home')}
+
+/* ==================================================
+   AUDIO SYNTHESIZER
+================================================== */
+let audioEnabled=true;
+let audioContext=null;
+
+function sound(type) {
+ if(!audioEnabled)return;
+ try {
+  audioContext ||= new (window.AudioContext||window.webkitAudioContext)();
+  if(audioContext.state==='suspended') audioContext.resume();
+  const osc=audioContext.createOscillator();
+  const gain=audioContext.createGain();
+  osc.connect(gain);
+  gain.connect(audioContext.destination);
+  const now=audioContext.currentTime;
+  const settings={
+   click:[500,.07,'sine'],
+   correct:[850,.2,'sine'],
+   wrong:[180,.2,'triangle']
+  }[type]||[500,.1,'sine'];
+  osc.frequency.setValueAtTime(settings[0],now);
+  if(type==='correct')osc.frequency.exponentialRampToValueAtTime(1200,now+.18);
+  gain.gain.setValueAtTime(.08,now);
+  gain.gain.exponentialRampToValueAtTime(.001,now+settings[1]);
+  osc.type=settings[2];
+  osc.start(now);
+  osc.stop(now+settings[1]);
+ } catch(e) {console.warn('Audio tidak tersedia',e)}
+}
+function toggleAudio() {
+ audioEnabled=!audioEnabled;
+ const btn=document.getElementById('audioBtn');
+ btn.innerHTML=audioEnabled
+  ? '<i class="fa-solid fa-volume-high"></i> <span>Audio ON</span>'
+  : '<i class="fa-solid fa-volume-xmark"></i> <span>Audio OFF</span>';
+ if(audioEnabled)sound('correct');
+}
+
+/* ==================================================
+   MATERI TAB
+================================================== */
+function materialTab(id,button) {
+ document.querySelectorAll('.material-content').forEach(el=>el.classList.add('hidden-section'));
+ document.getElementById('mat-'+id).classList.remove('hidden-section');
+ document.querySelectorAll('#materi .tab').forEach(el=>el.classList.remove('tab-active'));
+ button.classList.add('tab-active');
+ sound('click');
+}
+
+/* ==================================================
+   SIMULASI KALKULATOR
+================================================== */
+let currentShape='kubus';
+
+function setShape(shape) {
+ currentShape=shape;
+ document.getElementById('kubusControls').classList.toggle('hidden-section',shape!=='kubus');
+ document.getElementById('balokControls').classList.toggle('hidden-section',shape!=='balok');
+ document.getElementById('typeKubus').classList.toggle('tab-active',shape==='kubus');
+ document.getElementById('typeBalok').classList.toggle('tab-active',shape==='balok');
+ document.getElementById('shapeVisual').textContent=shape==='kubus'?'🧊':'📦';
+ document.getElementById('shapeLabel').textContent=shape==='kubus'?'Kubus':'Balok';
+ calculate();
+ sound('click');
+}
+function calculate() {
+ let p,l,t,v,lp,formula;
+ if(currentShape==='kubus') {
+  p=Number(document.getElementById('side').value);
+  l=t=p;
+  document.getElementById('sideValue').textContent=p+' cm';
+  v=p**3;
+  lp=6*p**2;
+  formula=`V = ${p}³ = ${v} cm³. Luas permukaan = 6 × ${p}² = ${lp} cm².`;
+ } else {
+  p=Number(document.getElementById('length').value);
+  l=Number(document.getElementById('width').value);
+  t=Number(document.getElementById('height').value);
+  document.getElementById('lengthValue').textContent=p+' cm';
+  document.getElementById('widthValue').textContent=l+' cm';
+  document.getElementById('heightValue').textContent=t+' cm';
+  v=p*l*t;
+  lp=2*(p*l+p*t+l*t);
+  formula=`V = ${p} × ${l} × ${t} = ${v} cm³. Luas permukaan = 2 × (${p*l} + ${p*t} + ${l*t}) = ${lp} cm².`;
+ }
+ document.getElementById('shapeDimension').textContent=`${p} × ${l} × ${t} cm`;
+ document.getElementById('volumeResult').textContent=v.toLocaleString('id-ID')+' cm³';
+ document.getElementById('areaResult').textContent=lp.toLocaleString('id-ID')+' cm²';
+ document.getElementById('calculationExplanation').textContent=formula;
+}
+function checkTank() {
+ const val=Number(document.getElementById('tankAnswer').value);
+ const feedback=document.getElementById('tankFeedback');
+ if(val===300) {
+  feedback.textContent='🎉 Benar! 100 × 50 × 60 = 300.000 cm³ = 300 liter.';
+  feedback.className='font-bold mt-3 text-green-700';
+  sound('correct');
+ } else {
+  feedback.textContent='Belum tepat. Hitung volume dalam cm³ terlebih dahulu, lalu bagi 1.000 untuk mendapatkan liter.';
+  feedback.className='font-bold mt-3 text-pink-700';
+  sound('wrong');
+ }
+}
+
+/* ==================================================
+   BANK SOAL KUIS TKA
+================================================== */
+const questions = {
+ mudah:[
+  {q:'Sebuah kubus memiliki rusuk 4 cm. Volume kubus adalah ...',o:['16 cm³','64 cm³','96 cm³','24 cm³'],a:1,e:'Volume kubus = s³ = 4 × 4 × 4 = 64 cm³.'},
+  {q:'Luas permukaan kubus dengan rusuk 3 cm adalah ...',o:['27 cm²','36 cm²','54 cm²','81 cm²'],a:2,e:'LP = 6s² = 6 × 9 = 54 cm².'},
+  {q:'Balok memiliki panjang 5 cm, lebar 3 cm, dan tinggi 2 cm. Volumenya ...',o:['10 cm³','15 cm³','30 cm³','60 cm³'],a:2,e:'V = 5 × 3 × 2 = 30 cm³.'},
+  {q:'Banyak sisi pada kubus adalah ...',o:['4','6','8','12'],a:1,e:'Kubus memiliki 6 sisi berbentuk persegi.'},
+  {q:'1 cm³ setara dengan ...',o:['1 liter','1 mL','10 mL','100 mL'],a:1,e:'Satu sentimeter kubik sama dengan satu mililiter.'},
+  {q:'Volume balok 4 × 4 × 4 cm adalah ...',o:['16 cm³','32 cm³','48 cm³','64 cm³'],a:3,e:'V = 4 × 4 × 4 = 64 cm³.'},
+  {q:'Satuan yang tepat untuk luas permukaan adalah ...',o:['cm','cm²','cm³','liter'],a:1,e:'Luas menggunakan satuan persegi, seperti cm².'},
+  {q:'Volume kubus dengan rusuk 2 cm adalah ...',o:['4 cm³','6 cm³','8 cm³','12 cm³'],a:2,e:'V = 2³ = 8 cm³.'},
+  {q:'1 dm³ sama dengan ...',o:['1 liter','10 liter','100 liter','1.000 liter'],a:0,e:'Satu desimeter kubik setara dengan satu liter.'},
+  {q:'Balok memiliki ukuran 10 cm × 2 cm × 3 cm. Volumenya ...',o:['15 cm³','30 cm³','60 cm³','90 cm³'],a:2,e:'V = 10 × 2 × 3 = 60 cm³.'}
+ ],
+ sedang:[
+  {q:'Sebuah balok berukuran 12 cm × 8 cm × 5 cm. Luas permukaannya ...',o:['296 cm²','392 cm²','480 cm²','240 cm²'],a:0,e:'LP = 2(96 + 60 + 40) = 392 cm². Periksa: jawaban yang benar adalah 392 cm².',corrected:1},
+  {q:'Volume sebuah kubus adalah 216 cm³. Panjang rusuknya ...',o:['4 cm','5 cm','6 cm','8 cm'],a:2,e:'Akar pangkat tiga dari 216 adalah 6. Jadi rusuknya 6 cm.'},
+  {q:'Bak berbentuk balok berukuran 2 m × 1 m × 0,5 m. Kapasitasnya ...',o:['100 liter','500 liter','1.000 liter','2.000 liter'],a:2,e:'V = 1 m³ = 1.000 liter.'},
+  {q:'3.500 cm³ setara dengan ...',o:['0,35 liter','3,5 liter','35 liter','350 liter'],a:1,e:'3.500 cm³ = 3.500 mL = 3,5 liter.'},
+  {q:'Balok berukuran 6 × 4 × 3 cm. Volumenya ...',o:['72 cm³','78 cm³','84 cm³','96 cm³'],a:0,e:'V = 6 × 4 × 3 = 72 cm³.'},
+  {q:'Jika rusuk kubus menjadi 2 kali, volumenya menjadi ...',o:['2 kali','4 kali','6 kali','8 kali'],a:3,e:'Volume bergantung pada pangkat tiga rusuk. Faktor perubahan = 2³ = 8.'},
+  {q:'Sebuah kubus memiliki rusuk 7 cm. Luas permukaannya ...',o:['196 cm²','294 cm²','343 cm²','49 cm²'],a:1,e:'LP = 6 × 7² = 294 cm².'},
+  {q:'Dua kubus identik dengan volume 27 cm³ masing-masing digabung tanpa tumpang tindih. Volume total ...',o:['27 cm³','54 cm³','81 cm³','108 cm³'],a:1,e:'Volume total = 27 + 27 = 54 cm³.'},
+  {q:'Sebuah kardus berukuran 20 × 10 × 5 cm. Luas permukaannya ...',o:['500 cm²','600 cm²','700 cm²','800 cm²'],a:2,e:'LP = 2(200 + 100 + 50) = 700 cm².'},
+  {q:'1,2 m³ setara dengan ...',o:['120 liter','1.020 liter','1.200 liter','12.000 liter'],a:2,e:'1,2 × 1.000 = 1.200 liter.'}
+ ],
+ sulit:[
+  {q:'Kubus memiliki rusuk 6 cm. Jika rusuk diperbesar menjadi 12 cm, volume baru dibanding volume awal adalah ...',o:['2 kali','4 kali','6 kali','8 kali'],a:3,e:'Faktor perubahan rusuk 2, maka volume berubah 2³ = 8 kali.'},
+  {q:'Balok 10 × 6 × 4 cm ditempeli kubus rusuk 2 cm tanpa tumpang tindih. Volume total ...',o:['240 cm³','248 cm³','256 cm³','260 cm³'],a:2,e:'Balok = 240 cm³. Kubus = 8 cm³. Total = 248 cm³. Jawaban yang benar adalah 248 cm³.',corrected:1},
+  {q:'Sebuah kubus memiliki luas permukaan 150 cm². Volumenya adalah ...',o:['100 cm³','125 cm³','150 cm³','216 cm³'],a:1,e:'6s² = 150, s² = 25, s = 5. Volume = 125 cm³.'},
+  {q:'Pernyataan: Jika seluruh dimensi balok diperbesar 3 kali, volumenya menjadi 9 kali. Penilaian yang tepat ...',o:['Benar','Salah, menjadi 27 kali','Salah, menjadi 6 kali','Tidak dapat ditentukan'],a:1,e:'Volume berubah menurut pangkat tiga faktor skala: 3³ = 27 kali.'},
+  {q:'Sebuah akuarium 80 × 40 × 50 cm terisi air 3/4 bagian. Volume airnya dalam liter ...',o:['80 liter','100 liter','120 liter','160 liter'],a:2,e:'Volume penuh = 160.000 cm³. Tiga perempatnya = 120.000 cm³ = 120 liter.'},
+  {q:'Dua kubus rusuk 4 cm disatukan pada satu sisi. Luas permukaan bangun gabungan adalah ...',o:['160 cm²','176 cm²','192 cm²','224 cm²'],a:1,e:'Dua LP = 192 cm². Dua bidang yang menempel masing-masing 16 cm² harus dikurangi: 192 - 32 = 160 cm². Jawaban yang benar 160 cm².',corrected:0},
+  {q:'Sebuah balok volumenya 480 cm³. Jika panjang 12 cm dan lebar 8 cm, tinggi balok ...',o:['4 cm','5 cm','6 cm','8 cm'],a:1,e:'t = 480 ÷ (12 × 8) = 5 cm.'},
+  {q:'Pernyataan: 0,75 m³ sama dengan 750 liter. Penilaian yang tepat ...',o:['Benar','Salah, 75 liter','Salah, 7.500 liter','Salah, 750 mL'],a:0,e:'0,75 × 1.000 = 750 liter. Pernyataan benar.'},
+  {q:'Sebuah balok 8 × 6 × 4 cm dipotong menjadi dua bagian sama besar melalui bidang sejajar alas. Jumlah volume kedua bagian ...',o:['96 cm³','144 cm³','192 cm³','384 cm³'],a:2,e:'Pemotongan tidak mengubah volume total. V = 8 × 6 × 4 = 192 cm³.'},
+  {q:'Sebuah kubus memiliki rusuk 5 cm. Pernyataan yang benar adalah ...',o:['Volume 25 cm³','Luas permukaan 125 cm²','Volume 125 cm³ dan LP 150 cm²','Volume 150 cm³'],a:2,e:'V = 5³ = 125 cm³. LP = 6 × 25 = 150 cm².'}
+ ]
+};
+
+// Koreksi dua butir yang perhitungan jawabannya membutuhkan ketelitian.
+questions.sedang[0].o=['296 cm²','392 cm²','480 cm²','240 cm²'];
+questions.sedang[0].a=1;
+questions.sulit[1].o=['240 cm³','248 cm³','256 cm³','260 cm³'];
+questions.sulit[1].a=1;
+questions.sulit[5].o=['160 cm²','176 cm²','192 cm²','224 cm²'];
+questions.sulit[5].a=0;
+
+let quizLevel='',quizIndex=0,quizScore=0,quizCorrect=0,answered=false,quizName='';
+
+function startQuiz(level) {
+ quizName=document.getElementById('studentName').value.trim();
+ if(!quizName) {
+  alert('Silakan masukkan nama peserta terlebih dahulu.');
+  document.getElementById('studentName').focus();
+  return;
+ }
+ quizLevel=level;
+ quizIndex=0;
+ quizScore=0;
+ quizCorrect=0;
+ document.getElementById('quizStart').classList.add('hidden-section');
+ document.getElementById('quizResult').classList.add('hidden-section');
+ document.getElementById('quizPlay').classList.remove('hidden-section');
+ document.getElementById('quizLevel').textContent='Level '+level;
+ renderQuestion();
+}
+function renderQuestion() {
+ answered=false;
+ const q=questions[quizLevel][quizIndex];
+ document.getElementById('quizCounter').textContent=`Soal ${quizIndex+1} dari 10`;
+ document.getElementById('liveScore').textContent=quizScore;
+ document.getElementById('quizProgress').style.width=((quizIndex+1)*10)+'%';
+ document.getElementById('questionText').textContent=q.q;
+ document.getElementById('feedback').classList.add('hidden-section');
+ document.getElementById('nextQuestion').disabled=true;
+ document.getElementById('nextQuestion').textContent=quizIndex===9?'Lihat Hasil 🏆':'Selanjutnya →';
+ const area=document.getElementById('optionsArea');
+ area.innerHTML='';
+ q.o.forEach((option,i)=>{
+  const btn=document.createElement('button');
+  btn.className='answer-option';
+  btn.textContent=String.fromCharCode(65+i)+'. '+option;
+  btn.onclick=()=>selectAnswer(i,btn);
+  area.appendChild(btn);
+ });
+}
+function selectAnswer(index,button) {
+ if(answered)return;
+ answered=true;
+ const q=questions[quizLevel][quizIndex];
+ const options=document.querySelectorAll('.answer-option');
+ options.forEach((el,i)=>{
+  el.disabled=true;
+  if(i===q.a)el.classList.add('correct');
+ });
+ let feedback=document.getElementById('feedback');
+ if(index===q.a) {
+  quizScore+=10;
+  quizCorrect++;
+  button.classList.add('correct');
+  feedback.className='rounded-xl p-4 mt-4 bg-green-50 text-green-800';
+  feedback.innerHTML='<b>🎉 Tepat sekali!</b><br>'+q.e;
+  sound('correct');
+ } else {
+  button.classList.add('wrong');
+  feedback.className='rounded-xl p-4 mt-4 bg-pink-50 text-pink-800';
+  feedback.innerHTML='<b>Belum tepat, jangan menyerah!</b><br>'+q.e;
+  sound('wrong');
+ }
+ document.getElementById('liveScore').textContent=quizScore;
+ feedback.classList.remove('hidden-section');
+ document.getElementById('nextQuestion').disabled=false;
+}
+function nextQuestion() {
+ if(!answered)return;
+ if(quizIndex<9) {
+  quizIndex++;
+  renderQuestion();
+ } else showQuizResult();
+}
+function exitQuiz() {
+ document.getElementById('quizPlay').classList.add('hidden-section');
+ document.getElementById('quizStart').classList.remove('hidden-section');
+}
+function showQuizResult() {
+ document.getElementById('quizPlay').classList.add('hidden-section');
+ document.getElementById('quizResult').classList.remove('hidden-section');
+ const percent=quizScore;
+ document.getElementById('resultName').textContent='Peserta: '+quizName;
+ document.getElementById('resultLevel').textContent='Level '+quizLevel;
+ document.getElementById('finalScore').textContent=percent;
+ document.getElementById('finalCorrect').textContent=quizCorrect+'/10';
+ document.getElementById('certName').textContent=quizName;
+ document.getElementById('certScore').textContent='Skor: '+percent;
+ document.getElementById('certDate').textContent=new Date().toLocaleDateString('id-ID',{day:'numeric',month:'long',year:'numeric'});
+ document.getElementById('motivation').textContent=
+  percent>=80?'🌟 Luar biasa! Kamu adalah Detektif Bangun Ruang yang hebat!':
+  percent>=60?'👏 Bagus! Terus berlatih agar semakin mahir.':
+  '💪 Tetap semangat! Pelajari kembali materi dan coba lagi.';
+ if(window.confetti)confetti({particleCount:180,spread:100,origin:{y:.6}});
+ sound('correct');
+}
+function resetQuiz() {
+ document.getElementById('quizResult').classList.add('hidden-section');
+ document.getElementById('quizStart').classList.remove('hidden-section');
+}
+
+/* ==================================================
+   MATCHING GAME
+================================================== */
+const matchData=[
+ ['Volume kubus','s³'],
+ ['Luas permukaan kubus','6s²'],
+ ['Volume balok','p × l × t'],
+ ['Luas permukaan balok','2(pl + pt + lt)'],
+ ['1 dm³','1 liter'],
+ ['1 cm³','1 mL']
+];
+let selectedConcept=null,selectedAnswer=null,matches=0;
+let conceptOrder=[],answerOrder=[];
+
+function shuffle(array) {
+ return [...array].sort(()=>Math.random()-.5);
+}
+function resetGame() {
+ matches=0;
+ selectedConcept=null;
+ selectedAnswer=null;
+ conceptOrder=shuffle(matchData.map((x,i)=>i));
+ answerOrder=shuffle(matchData.map((x,i)=>i));
+ document.getElementById('matchScore').textContent='Pasangan benar: 0/6';
+ document.getElementById('matchFeedback').textContent='Pilih kartu konsep terlebih dahulu.';
+ renderMatch();
+}
+function renderMatch() {
+ const left=document.getElementById('conceptCards');
+ const right=document.getElementById('answerCards');
+ left.innerHTML='';
+ right.innerHTML='';
+ conceptOrder.forEach(i=>{
+  if(matchData[i]===undefined)return;
+  const el=document.createElement('button');
+  el.className='game-item w-full';
+  el.textContent=matchData[i][0];
+  el.dataset.id=i;
+  if(matchData[i].matched)el.classList.add('matched');
+  if(selectedConcept===i)el.classList.add('selected');
+  el.disabled=!!matchData[i].matched;
+  el.onclick=()=>selectMatch('concept',i);
+  left.appendChild(el);
+ });
+ answerOrder.forEach(i=>{
+  const el=document.createElement('button');
+  el.className='game-item w-full';
+  el.textContent=matchData[i][1];
+  el.dataset.id=i;
+  if(matchData[i].matched)el.classList.add('matched');
+  if(selectedAnswer===i)el.classList.add('selected');
+  el.disabled=!!matchData[i].matched;
+  el.onclick=()=>selectMatch('answer',i);
+  right.appendChild(el);
+ });
+}
+function selectMatch(type,id) {
+ if(type==='concept')selectedConcept=id;
+ else selectedAnswer=id;
+ renderMatch();
+ if(selectedConcept!==null&&selectedAnswer!==null) {
+  const msg=document.getElementById('matchFeedback');
+  if(selectedConcept===selectedAnswer) {
+   matchData[id].matched=true;
+   matches++;
+   msg.textContent='🎉 Benar! Pasangan konsep dan rumus cocok.';
+   msg.className='mt-4 p-4 rounded-xl bg-green-50 text-green-800 font-bold';
+   sound('correct');
+   document.getElementById('matchScore').textContent=`Pasangan benar: ${matches}/6`;
+   if(matches===6&&window.confetti)confetti({particleCount:130,spread:80});
+  } else {
+   msg.textContent='Belum cocok. Perhatikan kembali hubungan rumus dan konsepnya.';
+   msg.className='mt-4 p-4 rounded-xl bg-pink-50 text-pink-800 font-bold';
+   sound('wrong');
+  }
+  selectedConcept=null;
+  selectedAnswer=null;
+  renderMatch();
+ }
+}
+
+/* ==================================================
+   GAME BENAR SALAH
+================================================== */
+const tfQuestions=[
+ ['Volume kubus dengan rusuk 3 cm adalah 27 cm³.',true,'3³ = 27 cm³.'],
+ ['Luas permukaan kubus rusuk 4 cm adalah 64 cm².',false,'LP = 6 × 16 = 96 cm².'],
+ ['1 m³ sama dengan 1.000 liter.',true,'Karena 1 m³ = 1.000 dm³.'],
+ ['Volume balok dihitung dengan p + l + t.',false,'Rumusnya p × l × t.'],
+ ['Bidang yang saling menempel pada bangun gabungan dihitung dalam luas permukaan luar.',false,'Bidang yang menempel tidak terlihat dari luar sehingga tidak dihitung.']
+];
+let tfIndex=0,tfAnswered=false;
+function checkTF(value) {
+ if(tfAnswered)return;
+ tfAnswered=true;
+ const q=tfQuestions[tfIndex];
+ const correct=value===q[1];
+ const el=document.getElementById('tfFeedback');
+ el.textContent=(correct?'🎉 Benar! ':'Belum tepat. ')+q[2];
+ el.className='font-bold mt-3 '+(correct?'text-green-700':'text-pink-700');
+ sound(correct?'correct':'wrong');
+}
+function nextTF() {
+ tfIndex=(tfIndex+1)%tfQuestions.length;
+ tfAnswered=false;
+ document.getElementById('trueFalseQuestion').textContent=tfQuestions[tfIndex][0];
+ document.getElementById('tfFeedback').textContent='';
+}
+
+/* ==================================================
+   REFLEKSI KOLABORATIF
+================================================== */
+const LOCAL_KEY='mpi_tka_bangun_ruang_reflections';
+
+function getLocalReflections() {
+ try{return JSON.parse(localStorage.getItem(LOCAL_KEY)||'[]')}
+ catch(e){return []}
+}
+function saveLocalReflection(item) {
+ const data=getLocalReflections();
+ data.unshift(item);
+ localStorage.setItem(LOCAL_KEY,JSON.stringify(data.slice(0,100)));
+}
+function renderReflection(data=getLocalReflections()) {
+ const wall=document.getElementById('reflectionWall');
+ wall.innerHTML='';
+ document.getElementById('reflectionCount').textContent=data.length+' refleksi';
+ if(!data.length) {
+  wall.innerHTML='<div class="col-span-full text-center p-8 text-gray-400">🌱 Belum ada refleksi. Jadilah yang pertama berbagi!</div>';
+  return;
+ }
+ data.forEach(item=>{
+  const note=document.createElement('div');
+  note.className='note';
+  const name=document.createElement('h3');
+  name.className='font-bold text-purple-900';
+  name.textContent='👤 '+item.name;
+  const feeling=document.createElement('p');
+  feeling.className='text-sm mt-2 font-bold';
+  feeling.textContent=item.feeling;
+  const message=document.createElement('p');
+  message.className='mt-3 text-gray-800';
+  message.textContent=item.message;
+  const date=document.createElement('p');
+  date.className='text-xs mt-3 text-gray-500';
+  date.textContent=item.date||'';
+  note.append(name,feeling,message,date);
+  wall.appendChild(note);
+ });
+}
+document.getElementById('reflectionForm').addEventListener('submit',async function(e){
+ e.preventDefault();
+ const item={
+  name:document.getElementById('reflectionName').value.trim(),
+  feeling:document.getElementById('reflectionFeeling').value,
+  message:document.getElementById('reflectionMessage').value.trim(),
+  date:new Date().toLocaleString('id-ID')
+ };
+ if(!item.name||!item.message)return;
+ saveLocalReflection(item);
+ renderReflection();
+ this.reset();
+ const status=document.getElementById('reflectionStatus');
+ if(GAS_URL) {
+  status.textContent='⏳ Menyimpan refleksi ke Google Spreadsheet...';
+  try {
+   await fetch(GAS_URL,{
+    method:'POST',
+    mode:'no-cors',
+    headers:{'Content-Type':'text/plain;charset=utf-8'},
+    body:JSON.stringify(item)
+   });
+   status.textContent='✅ Refleksi dikirim. Salinan juga tersimpan di browser.';
+  } catch(error) {
+   status.textContent='⚠️ Refleksi tersimpan lokal. Pengiriman online gagal.';
+  }
+ } else {
+  status.textContent='✅ Refleksi tersimpan di browser. Hubungkan GAS untuk penyimpanan online.';
+ }
+ sound('correct');
+});
+
+function savePemantik() {
+ const answer=document.getElementById('pemantikAnswer').value.trim();
+ if(!answer) {
+  document.getElementById('pemantikMsg').textContent='Tuliskan jawaban terlebih dahulu.';
+  return;
+ }
+ localStorage.setItem('mpi_pemantik',answer);
+ document.getElementById('pemantikMsg').textContent='Jawaban berhasil disimpan!';
+ sound('correct');
+}
+
+/* ==================================================
+   INISIALISASI
+================================================== */
+document.addEventListener('DOMContentLoaded',()=>{
+ calculate();
+ resetGame();
+ renderReflection();
+});
+</script>
+</body>
+</html>
